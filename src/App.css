@@ -1,0 +1,58 @@
+.container{
+
+  margin-top: 10px;
+
+
+
+}
+
+
+.purchase{
+  width: 350px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0  rgba(0, 0, 0, 0.19);
+  /* border: 1px red solid; */
+  padding: 1em;
+}
+
+
+.purchase > .show-grid{
+padding: 1.5em;
+
+
+}
+
+/* #border{
+
+  border: 1px red solid;
+ 
+
+} */
+
+
+.estTotal{
+
+  font-size: 20px;
+
+  
+
+}
+
+/*  in order for this to work correctly, it is a better practice 
+to create a css file for each component created. This is because when we render each 
+component, we arrive to a point where rendering of App.js happens before all of the 
+other components, therefore a slight delay.  */
+.books-btn:focus{ 
+
+  outline: none;
+
+}
+
+
+.bookImage{
+
+  width: 100px;
+  height: 100px;
+  alt: "thumbnail";
+
+
+}
