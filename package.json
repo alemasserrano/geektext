@@ -10,17 +10,6 @@
     "mssql": "^4.2.1",
     "npm": "^6.4.1",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "react": "^16.5.2",
-    "react-bootstrap": "^0.32.4",
-    "react-dom": "^16.5.2",
-    "react-script": "^2.0.5",
-    "react-scripts": "1.1.5"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "passport-local": "^1.0.0"
   }
 }

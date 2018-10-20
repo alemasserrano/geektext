@@ -51,18 +51,22 @@ app.set('view engine', 'ejs');
 const nav = [
   { link: '/books', title: 'Book' },
   { link: '/authors', title: 'Author' },
-  { link: '/review', title: 'Review' }
+  { link: '/review', title: 'Review' },
+  { link: '/cart', title: 'Cart'}
+
 ];
 
 const bookRouter = require('./src/routes/bookRoutes')(nav);
 // const adminRouter = require('./src/routes/adminRoutes')(nav);
 const authRouter = require('./src/routes/authRoutes')(nav);
 const reviewRouter = require('./src/routes/review')(nav);
+const cartRouter = require('./src/routes/cartRoutes')(nav);
 
 app.use('/books', bookRouter);
 // app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
 app.use('/review', reviewRouter);
+app.use('/cart', cartRouter);
 
 app.get('/', (req, res) => {
   res.render(
