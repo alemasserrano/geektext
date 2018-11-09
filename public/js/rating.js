@@ -91,7 +91,7 @@ $(document).ready(function () {
 
         var valid = true;
 
-        if (clickedValue == 0 || clickedValue > 5) {
+        if (clickedValue === 0 || clickedValue > 5) {
             valid = false;
             $('#error').html('<div class= "alert alert-dnger">Please give a rating and review before you submit.</div>');
         }
@@ -99,7 +99,7 @@ $(document).ready(function () {
             $('#error').html('')
         }
 
-        if (valid == true) {
+        if (valid === true) {
 
             $.ajax({
                 url: '/review/' + id,
