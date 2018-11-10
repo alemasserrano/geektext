@@ -105,48 +105,49 @@
                                         style="width:100px;height:100px" class="img-circle"></a>
                             </div>
                             <div class="col-md-10 col-sm-9">
-                                <h3><%= book.title %></h3>
+                                <h3>
+                                    <%= book.title %>
+                                </h3>
                                 <div class="row">
                                     <div class="col-xs-9">
-                                        <h4><span class="label label-default"><%= book.author %></span></h4>
+                                        <h4><span class="label label-default">
+                                                <%= book.author %></span></h4>
                                         <h4>
                                         </h4>
                                     </div>
                                     <div class="col-xs-3"></div>
                                 </div>
                                 <br><br>
-                            </div>
-                            <div class="col-md-10 col-sm-9">
-                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                                <style>
-                                    .checked {
-                color: orange;
-            }
-            </style>
-                                <h2>Rate this book</h2>
-                                <div class="col-sm-12" id="star_rating">
-                                    <img id="1_star" src="/images/star-off.png" alt="1" tittle="Bad">
-                                    <img id="2_star" src="/images/star-off.png" alt="2" tittle="Poor">
-                                    <img id="3_star" src="/images/star-off.png" alt="3" tittle="Fair">
-                                    <img id="4_star" src="/images/star-off.png" alt="4" tittle="Good">
-                                    <img id="5_star" src="/images/star-off.png" alt="5" tittle="Excellent">
 
-                                    <span id="showTitle"></span>
-                                </div>
-                                <br><br>
-                                <br><br>
                             </div>
-                            <div class="col-md-10 col-sm-9">
-                                <div class="form-group ">
-                                    <label for="">Write your review</label>
-                                    <textarea name="review" id="review" rows="8" cols="80" class="form-control"></textarea>
+                            <form action="" method="post">
+                                <div class="col-md-10 col-sm-9">
+                                    <h2>Rate this book</h2>
+                                    <div class="col-sm-12" id="star_rating">
+                                        <img id="1_star" src="/images/star-off.png" alt="1" tittle="Bad">
+                                        <img id="2_star" src="/images/star-off.png" alt="2" tittle="Poor">
+                                        <img id="3_star" src="/images/star-off.png" alt="3" tittle="Fair">
+                                        <img id="4_star" src="/images/star-off.png" alt="4" tittle="Good">
+                                        <img id="5_star" src="/images/star-off.png" alt="5" tittle="Excellent">
+
+                                        <span id="showTitle"></span>
+                                    </div>
+                                    <br><br>
+                                    <br><br>
                                 </div>
-                                <div class="form-group ">
-                                    <input type="submit" id="rate1" value="Create" class="form-control btn 
-                                    btn-primary"
-                                        name="rate">
+                                <div class="col-md-10 col-sm-9">
+                                    <div class="form-group ">
+                                        <label for="">Write your review</label>
+                                        <textarea name="review" id="review" rows="8" cols="80" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group ">
+                                        <input type="submit" id="rate1" value="Create" class="form-control btn 
+                                        btn-primary"
+                                            name="rate">
+                                    </div>
                                 </div>
-                            </div>
+
+                            </form>
                         </div>
                         <hr>
 
@@ -154,7 +155,7 @@
 
 
                         <a href="/" class="btn btn-primary pull-right btnNext">More <i class="glyphicon glyphicon-chevron-right"></i></a>
-                        <a href="/reviews/1" class="btn btn-success">Rate this book <i class="glyphicon glyphicon-chevron-right"></i></a>
+
 
 
                     </div>
@@ -174,13 +175,6 @@
         <div class="row">
             <div class="col col-sm-12">
 
-                <h1>Follow Us</h1>
-                <div class="btn-group">
-                    <a class="btn btn-twitter btn-lg" href="#"><i class="icon-twitter icon-large"></i> Twitter</a>
-                    <a class="btn btn-facebook btn-lg" href="#"><i class="icon-facebook icon-large"></i> Facebook</a>
-                    <a class="btn btn-google-plus btn-lg" href="#"><i class="icon-google-plus icon-large"></i> Google+</a>
-                </div>
-
             </div>
         </div>
     </div>
@@ -189,24 +183,7 @@
 
     <hr>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <ul class="list-inline">
-                        <li><i class="icon-facebook icon-2x"></i></li>
-                        <li><i class="icon-twitter icon-2x"></i></li>
-                        <li><i class="icon-google-plus icon-2x"></i></li>
-                        <li><i class="icon-pinterest icon-2x"></i></li>
-                    </ul>
 
-                </div>
-                <div class="col-sm-6">
-                    <p class="pull-right">Built with <i class="icon-heart-empty"></i> at <a href="http://www.bootply.com">Bootply</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
     <!-- script references -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
