@@ -19,20 +19,19 @@ function router(nav) {
 
   client.connect();
 
- /*  var bookReview = [];
-  // Do your queries here
-  var postresult = client.query('INSERT INTO public.review(order_id, book_id, review.review_rating, review_comment, review_creation_date) VALUES (2, 2, 3, Not as good as I expected, 11/08/2018',
-    (req, res) => {
-      bookReview.push(
-        {
-          orderId: 3,
-          bookIdtoReview: 3,
-          rating: req.body.rating,
-          review: req.body.review,
-          reviewDate: "11/01/2018"
-        });
-      client.end();
-    }); */
+  // var bookReview = [];
+  // //Do your queries here
+  // var postresult = client.query("INSERT INTO public.review(order_id, book_id, review_rating, review_comment) VALUES(" + "2" + "," + res.body.book_id + "," + res.body.clickedValue + "," + res.body.review + ");",
+  //   (req, res) => {
+  //     bookReview.push(
+  //       {
+  //         orderId: 2,
+  //         bookIdtoReview: res.body.book_id,
+  //         rating: res.body.clickedValue,
+  //         review: res.body.review,
+  //       });
+  //     //client.end();
+  //   });
 
   var books = [];
   // Do your queries here
@@ -46,9 +45,10 @@ function router(nav) {
             genre: res.rows[i].genre_name,
             author: res.rows[i].author_name_first,
             read: false
-          });
+          }
+        );
       }
-      client.end();
+      //client.end();
     });
 
   reviewRouter.route('/:id')
@@ -67,21 +67,29 @@ function router(nav) {
     });
 
 
-  reviewRouter.route('/:id')
-    .post((req, res) => {
+  reviewRouter.post('/:id', function (req, res) {
+    let orderId = req.body.orderId;
+    let bookId = req.params.id;
+    let userRating = req.body.clickedValue;
+    let userReview = req.body.review;
 
-      const { id } = req.params;
-      const specificBook = books[id - 1];
-      //const userrating = req.body.
+
+    var bookReview = [];
+    //Do your queries here
+    var postresult = client.query("INSERT INTO public.review(order_id, book_id, review_rating, review_comment) VALUES($1,$2,$3,$4)", [orderId, bookId, userRating, userReview]);
+    
+    const specificBookReview = books[bookId - 1];
+
       res.render(
-        'review',
+        'bookView',
         {
           nav,
           title: 'Library',
-          book: specificBook
+          book: specificBookReview
         }
       );
-    });
+    //client.end();
+  });
   return reviewRouter;
 }
 

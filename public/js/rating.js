@@ -86,7 +86,7 @@ $(document).ready(function () {
     //creating a click event
     $('#rate').on('click', function () {
         var review = $('#review').val();
-        var sender = $('#sender').val(); //this needs to be changed by the book title and author variables from review.ejs
+        var orderId = $('#orderId').val(); //this needs to be changed by the book title and author variables from review.ejs
         var id = $('#id').val();
 
         var valid = true;
@@ -102,16 +102,16 @@ $(document).ready(function () {
         if (valid === true) {
 
             $.ajax({
-                url: '/review/' + id,
+                url: '/review/'+ id,
                 type: 'POST',
                 data: {
                     clickedValue: clickedValue,
                     review: review,
-                    sender: sender
+                    orderId: orderId
                 },
                 success: function () {
                     $('#review').val('');
-                    $('#sender').val(''); //this needs to be changed by the book title and author variables from review.ejs
+                    $('#orderId').val(''); //this needs to be changed by the book title and author variables from review.ejs
                     $('#id').val('');
                 }
             });

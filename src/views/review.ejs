@@ -121,6 +121,12 @@
 
                             </div>
                             <form action="" method="post">
+                                <input class="form-control" id="id" value="<%= book.id %>" type="hidden">
+                                <div class="col-md-10 col-sm-9">
+                                    <label for="">OrderNumber(Testing)</label>
+                                    <input class="form-control" name="orderId" id="orderId" value=""
+                                        type="number">
+                                </div>
                                 <div class="col-md-10 col-sm-9">
                                     <h2>Rate this book</h2>
                                     <div class="col-sm-12" id="star_rating">
@@ -141,13 +147,18 @@
                                         <textarea name="review" id="review" rows="8" cols="80" class="form-control"></textarea>
                                     </div>
                                     <div class="form-group ">
-                                        <input type="submit" id="rate1" value="Create" class="form-control btn 
+                                        <input type="submit" id="rate" value="Create" class="form-control btn 
                                         btn-primary"
                                             name="rate">
                                     </div>
                                 </div>
 
                             </form>
+                            <!-- <form action="/team_name_url/" method="post">
+                                <label for="team_name">Enter name: </label>
+                                <input id="team_name" type="text" name="name_field" value="Default name for team.">
+                                <input type="submit" value="OK">
+                            </form> -->
                         </div>
                         <hr>
 
@@ -167,7 +178,11 @@
             <!--/col-12-->
         </div>
     </div>
-
+    <!-- <form action="/review/<%= book.id %>" method="post">
+        <label for="team_name">Enter name: </label>
+        <input id="team_name" type="number" name="orderID" value="Default name for team.">
+        <input type="submit" value="OK">
+    </form> -->
 
     <hr>
 
