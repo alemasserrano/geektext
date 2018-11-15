@@ -66,28 +66,30 @@ function router(nav) {
       );
     });
 
-
+  var ratingNumber = [];
   reviewRouter.post('/:id', function (req, res) {
     let orderId = req.body.orderId;
     let bookId = req.params.id;
     let userRating = req.body.clickedValue;
     let userReview = req.body.review;
-
+    //let ratingSum = req.b
+    ratingNumber.push(userRating);
 
     var bookReview = [];
     //Do your queries here
     var postresult = client.query("INSERT INTO public.review(order_id, book_id, review_rating, review_comment) VALUES($1,$2,$3,$4)", [orderId, bookId, userRating, userReview]);
-    
+
     const specificBookReview = books[bookId - 1];
 
-      res.render(
-        'bookView',
-        {
-          nav,
-          title: 'Library',
-          book: specificBookReview
-        }
-      );
+    res.render(
+      'bookView',
+      {
+        nav,
+        title: 'Library',
+        book: specificBookReview,
+        ratingNum: ratingNumber
+      }
+    );
     //client.end();
   });
   return reviewRouter;

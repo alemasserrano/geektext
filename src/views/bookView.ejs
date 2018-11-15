@@ -117,10 +117,59 @@
                   </div>
                   <div class="col-xs-3"></div>
                 </div>
+                <div class="col-md-10 col-sm-9">
+                  <h1><span class="star" data-score="<%= book.ratingAverage %>"></span></h1>
+                  <h1>
+                  </h1>
+                  <h4>Average Rating (
+                    <%= book.ratingAverage %>)</h4>
+                  <h5>Based on
+                    <%= book.ratingNumber %> reviews</h5>
+                </div>
+
+                <!-- <div class="col-md-9 colDiv">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="count">
+                        <h1>
+                          <%= book.ratingNumber %>
+                        </h1>
+                        <h2>Ratings</h2>
+                        <h2>Total Ratings received</h2>
+                      </div>
+
+                    </div>
+                  </div>
+                </div> -->
                 <br><br>
+
+                <!-- <% if(books.ratingNumber > 0) { %> -->
+                <%for(let i = 0; i < book.ratingArray.length; i++) { %>
+                <div class="col-md-12 reniewDiv">
+                  <div>
+                    <img src="" width="100px" height="100px">
+                  </div>
+                  <div class="col-md-8">
+                    <h3>
+                      <a href="#">
+                        <%= book.title %></a>
+                    </h3>
+                    <h4>
+                      <%= book.author %>
+                    </h4>
+                  </div>
+                  <div class="col-md-2" style:"width:150px">
+                    <h3>Rating</h3>
+                    <span class="star" data-score="<%= book.ratingAverage %>"></span>
+                  </div>
+                </div>
+                <%}%>
+                <!-- <% } %> -->
+
               </div>
             </div>
             <hr>
+            <br><br>
 
             <!--/stories-->
 
@@ -166,6 +215,20 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/rating.js"></script>
+  <script src="/js/jquery.raty.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $.fn.raty.defaults.path = '/images/';
+      $('.star').raty({
+        readOnly: true,
+        score: function (book) {
+          return $(this).attr('data-score');
+        }
+      });
+    });
+  </script>
+
 </body>
 
 </html>
