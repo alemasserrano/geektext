@@ -1,5 +1,4 @@
 const express = require('express');
-const sql = require('mssql');
 const debug = require('debug')('app:authRoutes');
 
 const authRouter = express.Router();

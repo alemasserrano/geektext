@@ -1,6 +1,5 @@
 const express = require('express');
 const bookRouter = express.Router();
-const sql = require('mssql');
 const debug = require('debug')('app:bookRoutes');
 const { Client } = require('pg');
 const user = 'cen4010master';

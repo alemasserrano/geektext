@@ -157,6 +157,19 @@ a,a:hover {
   padding:6px;
   color:#fff;
 }
+.thumbnail img {
+  max-height: 150px;
+
+}
+
+.thumbnail .description {
+  color: #7f7f7f;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 16px;
+}
     
 .btn-twitter {background-color:#4099FF;color:#fff;}
 .btn-facebook {background-color:#3B5998;color:#fff;}
