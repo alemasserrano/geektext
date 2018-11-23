@@ -6,6 +6,8 @@ const user = 'cen4010master';
 const host = 'cen4010dbinstance.cuo3jpom4wfm.us-east-1.rds.amazonaws.com';
 const database = 'cen4010db';
 const password = 'cen4010password';
+var db = require('../../queries');
+
 
 function router(nav) {
   var client = new Client({
@@ -22,7 +24,7 @@ function router(nav) {
   var ratingNumber = 0;
   var books = [];
   // Do your queries here
-  var result = client.query('SELECT book.book_id, book.book_title, book.book_description , book.book_price,author.author_name_first, g.genre_name, Count(r.review_rating), CAST(AVG(r.review_rating)AS DECIMAL(10,1)) FROM book JOIN book_author ba ON book.book_id=ba.book_id INNER JOIN author ON author.author_id=ba.author_id JOIN book_genre bg ON book.book_id=bg.book_id JOIN genre g ON bg.genre_id=g.genre_id LEFT Join review r ON book.book_id=r.book_id Group by book.book_id, book.book_title, author.author_name_first, g.genre_name',
+  var result = client.query('SELECT book.book_id, book.book_image, book.book_title, book.book_description , book.book_price,author.author_name_first, g.genre_name, Count(r.review_rating), CAST(AVG(r.review_rating)AS DECIMAL(10,1)) FROM book JOIN book_author ba ON book.book_id=ba.book_id INNER JOIN author ON author.author_id=ba.author_id JOIN book_genre bg ON book.book_id=bg.book_id JOIN genre g ON bg.genre_id=g.genre_id LEFT Join review r ON book.book_id=r.book_id Group by book.book_id, book.book_title, author.author_name_first, g.genre_name',
     (err, res) => {
       for (i = 0; i < res.rows.length; i++) {
         books.push(
@@ -35,6 +37,7 @@ function router(nav) {
             ratingAverage: res.rows[i].avg,
             description: res.rows[i].book_description,
             price: res.rows[i].book_price,
+            image: res.rows[i].book_image,
             read: false
           });
         ratingArray.push(
@@ -46,64 +49,6 @@ function router(nav) {
       client.end();
     });
 
-  // const books = [
-  //   {
-  //     id: 1,
-  //     title: 'War and Peace',
-  //     genre: 'Historical Fiction',
-  //     author: 'Lev Nikolayevich Tolstoy',
-  //     read: false
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Les Misérables',
-  //     genre: 'Historical Fiction',
-  //     author: 'Victor Hugo',
-  //     read: false
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'The Time Machine',
-  //     genre: 'Science Fiction',
-  //     author: 'H. G. Wells',
-  //     read: false
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'A Journey into the Center of the Earth',
-  //     genre: 'Science Fiction',
-  //     author: 'Jules Verne',
-  //     read: false
-  //   },
-  //   {
-  //     id: 5,
-  //     title: 'The Dark World',
-  //     genre: 'Fantansy',
-  //     author: 'Henry Kuttner',
-  //     read: false
-  //   },
-  //   {
-  //     id: 6,
-  //     title: 'Thw Wind in the Willows',
-  //     genre: 'Fantasy',
-  //     author: 'Kenneth Grahame',
-  //     read: false
-  //   },
-  //   {
-  //     id: 7,
-  //     title: 'Life On The Mississippi',
-  //     genre: 'History',
-  //     author: 'Mark Twain',
-  //     read: false
-  //   },
-  //   {
-  //     id: 8,
-  //     title: 'Childhood',
-  //     genre: 'Biography',
-  //     author: 'Lev Nikolayevich',
-  //     read: false
-  //   }
-  // ];
 
   bookRouter.route('/')
     .get((req, res) => {
@@ -122,20 +67,6 @@ function router(nav) {
       }());
     });
 
-  /*
-  .all((req, res, next) => {
-      (async function query() {
-        const { id } = req.params;
-        const request = new sql.Request();
-        const { recordset } =
-          await request.input('id', sql.Int, id)
-            .query('SELECT * FROM books WHERE id = @id');
-        [req.book] = recordset;
-        next();
-
-      }());
-    })
-  */
 
   bookRouter.route('/:id')
     .get((req, res) => {
@@ -151,6 +82,14 @@ function router(nav) {
         }
       );
     });
+
+bookRouter.get('/api/cen4010db', db.getCustomer);
+bookRouter.get('/api/cen4010db/:id', db.getSingleCustomer);
+bookRouter.post('/api/cart', db.createCart);
+
+
+
+
   return bookRouter;
 }
 
