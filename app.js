@@ -51,9 +51,11 @@ const nav = [
   { link: '/books', title: 'Book' },
   { link: '/authors', title: 'Author' },
   { link: '/cart', title: 'Cart'},
+  { link: '/userregistration', title: 'Register'}, // point to user registration form
 ];
 
 const bookRouter = require('./src/routes/bookRoutes')(nav);
+const userregistrationRouter = require('./src/routes/userRegistrationRoutes')(nav); // point to user registration form
 // const adminRouter = require('./src/routes/adminRoutes')(nav);
 // const authRouter = require('./src/routes/authRoutes')(nav);
 const authRouter = require('./src/routes/userLogRoute')();
@@ -61,6 +63,7 @@ const reviewRouter = require('./src/routes/review')(nav);
 const cartRouter = require('./src/routes/cartRoute')(nav);
 
 app.use('/books', bookRouter);
+app.use('/userRegistration', userregistrationRouter); // point to user registration form
 // app.use('/admin', adminRouter);
 app.use('/', authRouter);
 app.use('/review', reviewRouter);
@@ -70,9 +73,12 @@ app.get('/', (req, res) => {
   res.render(
     'index',
     {
-      nav: [{ link: '/books', title: 'Books' },
-      { link: '/authors', title: 'Authors' },
-        { link: '/cart', title: 'Cart'}],
+      nav: [
+        { link: '/books', title: 'Books' },
+        { link: '/authors', title: 'Authors' },
+        { link: '/cart', title: 'Cart'},
+        { link: '/userRegistration', title: 'Register' }  // point to user registration form
+      ],
       title: 'Library'
     }
   );
