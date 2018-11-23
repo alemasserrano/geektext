@@ -77,6 +77,24 @@ function router(nav) {
         }
       );
     });
+
+    bookRouter.route('/:author_id').get((req, res) => {
+        const { author } = req.params;
+        var author_books = [];
+        for (n = 0; n < book.length; n++){
+          if (book[i].author_id == author){
+            author_books.push(book[i]);
+          }
+        }
+        res.render(
+          'bookListView',
+          {
+            nav,
+            title: 'Library',
+            books: auhor_books
+          }
+        );
+      });
   return bookRouter;
 }
 module.exports = router;
