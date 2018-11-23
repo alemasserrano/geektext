@@ -76,8 +76,6 @@ const nav = [
 ];
 
 const bookRouter = require('./src/routes/bookRoutes')(nav);
-// const adminRouter = require('./src/routes/adminRoutes')(nav);
-// const authRouter = require('./src/routes/authRoutes')(nav);
 const authRouter = require('./src/routes/userAuth')(app);
 const reviewRouter = require('./src/routes/review')(nav);
 const cartRouter = require('./src/routes/cartRoute')(nav);
