@@ -51,7 +51,7 @@ module.exports = function (app) {
             try {
                 const client = await pool.connect()
                 await client.query('BEGIN')
-                var pwd = await bcrypt.hash(req.body.password, 5, null);
+                var pwd = await bcrypt.hash(req.body.password, 5);
                 await JSON.stringify(client.query('SELECT customer_id FROM "customer" WHERE "cust_email" = $1', [req.body.username], function(err, result) {
 
                     if(result.rows[0]){
