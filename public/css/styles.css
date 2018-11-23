@@ -195,8 +195,12 @@ a,a:hover {
   float: left;
   width: 9%;
 }
-.product-line-price {
+.product-saving {
   float: left;
+  width: 8%;
+}
+.product-line-price {
+  float: right;
   width: 12%;
   text-align: right;
 }
@@ -275,6 +279,22 @@ label {
 }
 .product .remove-product:hover {
   background-color: #a44;
+}
+
+.product .product-save {
+
+  border: 0;
+  padding: 4px 8px;
+  background-color: #c66;
+  color: #fff;
+  font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
+  font-size: 12px;
+  border-radius: 3px;
+  position: fixed;
+  width: 100%;
+  
+
+
 }
 /* Totals section */
 .totals .totals-item {
