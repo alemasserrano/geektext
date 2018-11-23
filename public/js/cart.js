@@ -15,6 +15,12 @@ $('.product-removal button').click( function() {
 });
 
 
+$('.product-saving button').click( function() {
+
+          saveItem(this);
+} );
+
+
 /* Recalculate cart */
 function recalculateCart()
 {
@@ -73,4 +79,17 @@ function removeItem(removeButton)
     productRow.remove();
     recalculateCart();
   });
+}
+
+
+function saveItem(saveButton){
+
+  var productRow = $(saveButton).parent().parent();
+  var saveLater = document.getElementsByClassName("product-save");
+  productRow.slideDown(fadeTime, function(){
+      productRow.insertAfter(saveLater);
+      recalculateCart();
+  })
+  1
+
 }
