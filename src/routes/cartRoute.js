@@ -8,6 +8,7 @@ const password = 'cen4010password';
 
 function router(nav){
 
+
     var client = new Client({
         user: user,
         host: host,
@@ -42,6 +43,7 @@ function router(nav){
       client.end();
     });
 
+
     cartRouter.route('/')
         .get((req, res) => {
 
@@ -49,13 +51,15 @@ function router(nav){
                    'cartView',
                    {
                        nav,
+
                        title: 'Cart',
                        books: books
+
                    }
                ); 
 
         });
-    
+
     return cartRouter;
 
 }

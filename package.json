@@ -6,6 +6,7 @@
     "bcrypt": "^3.0.2",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.3",
+    "alert-node": "^1.2.2",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "connect-flash": "^0.1.1",

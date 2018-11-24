@@ -88,21 +88,16 @@
 
   <div class="container">
     <div class="row">
-
       <div class="col-md-12">
-
         <div class="panel">
           <div class="panel-body">
-
-
-
             <!--/stories-->
 
             <div class="row">
               <br>
               <div class="col-md-2 col-sm-3 text-center">
-                <a class="story-title" href="#"><img alt="" src="http://api.randomuser.me/portraits/thumb/men/58.jpg"
-                    style="width:100px;height:100px" class="img-circle"></a>
+                <img id="thumbnail-book" alt="<%= book.title %>" src="<%= book.img %>" 
+                  style="width:100px;height:100px">
               </div>
               <div class="col-md-10 col-sm-9">
                 <h3>
@@ -111,12 +106,28 @@
                 <div class="row">
                   <div class="col-xs-9">
                     <h4><span class="label label-default">
-                        <%= book.author %></span></h4>
+                        <%= book.author_name %></span></h4>
                     <h4>
                     </h4>
+                    <p>Biography: <%= book.author_bio %></p>
+                    <h4><span class="label label-default">
+                        Description</span></h4>
+                        <h4>
+                    </h4>
+                    <p> <%= book.description %> </p>
                   </div>
-                  <div class="col-xs-3"></div>
+                  <div class="col-xs-3">
+                    <h4><span class="label label-default">
+                        Publisher: <%= book.publisher_name %></span></h4>
+                        <h4>
+                    </h4>
+                    <h4><span class="label label-default">
+                        Released: <%= book.release_date %></span></h4>
+                        <h4>
+                    </h4>
+                  </div>
                 </div>
+
                 <div class="col-md-10 col-sm-9">
                   <h1><span class="star" data-score="<%= book.ratingAverage %>"></span></h1>
                   <h1>
@@ -127,49 +138,39 @@
                     <%= book.ratingNumber %> reviews</h5>
                 </div>
 
-                <!-- <div class="col-md-9 colDiv">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="count">
-                        <h1>
-                          <%= book.ratingNumber %>
-                        </h1>
-                        <h2>Ratings</h2>
-                        <h2>Total Ratings received</h2>
-                      </div>
-
-                    </div>
-                  </div>
-                </div> -->
-                <br><br>
-
-                <!-- <% if(books.ratingNumber > 0) { %> -->
-                <%for(let i = 0; i < book.ratingArray.length; i++) { %>
+                <%for(let i = 0; i < commentsArray.length; i++) {%>
+                <% if(commentsArray[i].idofCommentedBook == book.id ) {%>
                 <div class="col-md-12 reniewDiv">
-                  <div>
-                    <img src="" width="100px" height="100px">
-                  </div>
+                  <!-- <div>
+                                <img src="" width="100px" height="100px">
+                              </div> -->
                   <div class="col-md-8">
-                    <h3>
-                      <a href="#">
-                        <%= book.title %></a>
-                    </h3>
                     <h4>
-                      <%= book.author %>
+                      <%= commentsArray[i].customerName %>
                     </h4>
+                    <p>
+                      <%= commentsArray[i].comment %>
+                    </p>
                   </div>
                   <div class="col-md-2" style:"width:150px">
                     <h3>Rating</h3>
-                    <span class="star" data-score="<%= book.ratingAverage %>"></span>
+                    <span class="star" data-score="<%= commentsArray[i].rating %>"></span>
                   </div>
                 </div>
                 <%}%>
-                <!-- <% } %> -->
+                <%}%>
 
+                <br><br>
               </div>
             </div>
             <hr>
             <br><br>
+            
+            <div id="thumbnail-closeup" class="closeup">
+              <span class="close">&times;</span>
+              <img class="closeup-image" id="img01">
+              <div id="closeup-caption"></div>
+            </div>
 
             <!--/stories-->
 
@@ -180,9 +181,6 @@
 
           </div>
         </div>
-
-
-
       </div>
       <!--/col-12-->
     </div>
@@ -227,6 +225,23 @@
         }
       });
     });
+
+    var closeup = document.getElementById('thumbnail-closeup');
+
+    var img = document.getElementById('thumbnail-book');
+    var closeupImg = document.getElementById("img01");
+    var captionText = document.getElementById("closeup-caption");
+    img.onclick = function(){
+        closeup.style.display = "block";
+        closeupImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    var span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() { 
+        closeup.style.display = "none";
+    }
   </script>
 
 </body>

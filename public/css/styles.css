@@ -171,6 +171,7 @@ a,a:hover {
   font-weight: bold;
   font-size: 16px;
 }
+<<<<<<< HEAD
 
 /* NEW CSS FOR SHOPPING CART */
 /* Global settings */
@@ -397,6 +398,8 @@ label {
 
 /* CSS FOR SHOPPING CART END */
 
+=======
+>>>>>>> 17cd04000d1c32c2dcac14d6f3881ccd6482886e
     
 .btn-twitter {background-color:#4099FF;color:#fff;}
 .btn-facebook {background-color:#3B5998;color:#fff;}
@@ -405,3 +408,101 @@ label {
 .btn-twitter:hover {background-color:#3088FF;color:#62BBFF;}
 .btn-facebook:hover {background-color:#2A4998;color:#4C6BBA;}
 .btn-google-plus:hover {background-color:#C23836;color:#E45A58;}
+
+#thumbnail-book{
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/********************
+
+popup for images in book details
+
+********************/
+#thumbnail-book:hover{
+  opacity: 0.6;
+}
+.closeup {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+
+.closeup-image {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+
+#closeup-caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+    font-size: 30px;
+}
+
+/* Add Animation */
+.closeup-image, #closeup-caption {    
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: relative;
+    top: 15px;
+    right: 35px;
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #d9d9d9;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .closeup-image {
+        width: 100%;
+    }
+}
+/********************
+
+    END OF POPUP
+
+********************/
+

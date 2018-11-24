@@ -61,27 +61,40 @@ const nav = [
   { link: '/books', title: 'Book' },
   { link: '/authors', title: 'Author' },
   { link: '/cart', title: 'Cart'},
+  { link: '/userregistration', title: 'Register'},
+
 ];
 
+
 const bookRouter = require('./src/routes/bookRoutes')(nav);
+const userregistrationRouter = require('./src/routes/userRegistrationRoutes')(nav); // point to user registration form
 const authRouter = require('./src/routes/userAuth')(app);
 const reviewRouter = require('./src/routes/review')(nav);
+const reviewListRouter = require('./src/routes/bookReviewsListRoute')(nav);
 const cartRouter = require('./src/routes/cartRoute')(nav);
 
 app.use('/books', bookRouter);
-app.use('/user/signin', authRouter);
+app.use('/userRegistration', userregistrationRouter); // point to user registration form
+app.use('/', authRouter);
 app.use('/review', reviewRouter);
+app.use('/reviewlist', reviewListRouter);
+
 app.use('/cart', cartRouter);
 
 app.get('/', (req, res) => {
   res.render(
     'user/signin',
     {
+
       nav: [{ link: '/books', title: 'Books' },
       { link: '/authors', title: 'Authors' },
-        { link: '/cart', title: 'Cart'}],
+        { link: '/cart', title: 'Cart'}, 
+        {link: '/userRegistration', title: 'Register' },
+        ],
       title: 'Library',
       messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}
+
+
 
     }
   );
