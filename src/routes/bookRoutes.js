@@ -110,10 +110,35 @@ function getBooksFromDb(sortBy, direction, browse, limit, page) {
 
         client.end();
       });
+
   });
 }
 
 function router(nav) {
+  var client = new Client({
+    user: user,
+    host: host,
+    database: database,
+    password: password,
+    port: 5432,
+  });
+  client.connect();
+  
+  var commentsArray = [];
+  var resultComments = client.query('SELECT r.book_id, r.review_comment, r.review_rating, c.cust_name_first FROM review r JOIN "order" o ON r.order_id=o.order_id JOIN customer c ON o.customer_id=c.customer_id Group by r.book_id, r.review_comment, r.review_rating, c.cust_name_first',
+  (err, res) => {
+    for (i = 0; i < res.rows.length; i++) {
+      commentsArray.push(
+        {
+          idofCommentedBook: res.rows[i].book_id,
+          comment: res.rows[i].review_comment,
+          rating: res.rows[i].review_rating,
+          customerName: res.rows[i].cust_name_first,
+        });
+    }
+    client.end();
+  });
+
   bookRouter.route('/')
     .get(async (req, res) => {
         const sortBy = req.query.sort_by;
@@ -144,7 +169,8 @@ function router(nav) {
             nav,
             title: 'Library',
             book: specificBook,
-            books: books
+            books: books,
+            commentsArray: commentsArray,
           }
         );
     });
