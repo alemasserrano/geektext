@@ -17,7 +17,11 @@ function router(nav) {
   });
 
   client.connect();
+<<<<<<< HEAD
   var ratingArray = [];
+=======
+
+>>>>>>> commit ahora pq soy tonta
   var ratingNumber = 0;
   var books = [];
   // Do your queries here
@@ -41,14 +45,40 @@ function router(nav) {
             release_date: res.rows[i].book_release_date,
             read: false
           });
-        ratingArray.push(
+      }
+    });
+
+  var commentsArray = [];
+  var resultComments = client.query('SELECT r.book_id, r.review_comment, r.review_rating, c.cust_name_first FROM review r JOIN "order" o ON r.order_id=o.order_id JOIN customer c ON o.customer_id=c.customer_id Group by r.book_id, r.review_comment, r.review_rating, c.cust_name_first',
+    (err, res) => {
+      for (i = 0; i < res.rows.length; i++) {
+        commentsArray.push(
           {
-            ratingValue: ratingNumber,
+            idofCommentedBook: res.rows[i].book_id,
+            comment: res.rows[i].review_comment,
+            rating: res.rows[i].review_rating,
+            customerName: res.rows[i].cust_name_first,
           });
       }
+<<<<<<< HEAD
       client.end();
     });
 
+=======
+      //client.end();
+    });
+
+  // const books = [
+  //   {
+  //     id: 1,
+  //     title: 'War and Peace',
+  //     genre: 'Historical Fiction',
+  //     author: 'Lev Nikolayevich Tolstoy',
+  //     read: false
+  //   },
+  // ];
+
+>>>>>>> commit ahora pq soy tonta
   bookRouter.route('/')
     .get((req, res) => {
       (async function query() {
@@ -66,17 +96,24 @@ function router(nav) {
 
   bookRouter.route('/:id').get((req, res) => {
       const { id } = req.params;
+<<<<<<< HEAD
       const specificBook = books[id-1];
+=======
+      const specificBook = books[id - 1];
+
+>>>>>>> commit ahora pq soy tonta
       res.render(
         'bookView',
         {
           nav,
           title: 'Library',
           book: specificBook,
-          books: books
+          books: books,
+          commentsArray: commentsArray,
         }
       );
     });
+
   return bookRouter;
 }
 module.exports = router;
