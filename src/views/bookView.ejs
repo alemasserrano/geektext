@@ -145,14 +145,39 @@
                 </div>
 
                 <% for(let i = 0; i < book.review.length; i++) { %>
-                <div class="row">
-                    <div class="col-md-4" style:"width:150px">
-                      <h3>Rating</h3>
-                      <span class="star" data-score="<%= book.review[i].review_rating %>"></span>
-                    </div>
-                    <div class="col-md-8">
-                      <p><%= book.review[i].review_comment %></p>
-                    </div>
+                <div class="col-md-12 reniewDiv">
+                  <div class="col-md-8">
+                    <h3>
+                      <%= book.review[i].cust_name_first %>
+                    </h3>
+
+                    <!-- <dialog id="favDialog">
+                      <form method="dialog">
+                        <p><label>Edit name displayed with the review:
+                            <select>
+                              <option><%= book.review[i].cust_name_first %></option>
+                              <option><%= book.review[i].cust_nickname %></option>
+                              <option>Anonymous</option>
+                            </select>
+                          </label></p>
+                        <menu>
+                          <button>Cancel</button>
+                          <button>Confirm</button>
+                        </menu>
+                      </form>
+                    </dialog>
+
+                    <menu>
+                      <button id="updateDetails">Update details</button>
+                    </menu> -->
+                    <p>
+                      <%= book.review[i].review_comment %>
+                    </p>
+                  </div>
+                  <div class="col-md-4" style:"width:150px">
+                    <h3>Rating</h3>
+                    <span class="star" data-score="<%= book.review[i].review_rating %>"></span>
+                  </div>
                 </div>
                 <% } %>
 

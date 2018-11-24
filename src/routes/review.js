@@ -20,7 +20,7 @@ function router(nav) {
 
   var books = [];
   // Do your queries here
-  client.query('SELECT book.book_id, book.book_title, author.author_name_first, g.genre_name, Count(r.review_rating), CAST(AVG(r.review_rating)AS DECIMAL(10,1)) FROM book JOIN book_author ba ON book.book_id=ba.book_id INNER JOIN author ON author.author_id=ba.author_id JOIN book_genre bg ON book.book_id=bg.book_id JOIN genre g ON bg.genre_id=g.genre_id LEFT Join review r ON book.book_id=r.book_id Group by book.book_id, book.book_title, author.author_name_first, g.genre_name',
+  client.query('SELECT book.book_id, book.book_title, author.author_name_first, g.genre_name, author.author_name_last, Count(r.review_rating), CAST(AVG(r.review_rating)AS DECIMAL(10,1)) FROM book JOIN book_author ba ON book.book_id=ba.book_id INNER JOIN author ON author.author_id=ba.author_id JOIN book_genre bg ON book.book_id=bg.book_id JOIN genre g ON bg.genre_id=g.genre_id LEFT Join review r ON book.book_id=r.book_id Group by book.book_id, book.book_title, author.author_name_first, g.genre_name, author.author_name_last',
     (err, res) => {
       for (i = 0; i < res.rows.length; i++) {
         books.push(
@@ -30,7 +30,7 @@ function router(nav) {
             genre: res.rows[i].genre_name,
             ratingNumber: res.rows[i].count,
             ratingAverage: res.rows[i].avg,
-            author: res.rows[i].author_name_first,
+            author: res.rows[i].author_name_first + " " + res.rows[i].author_name_last,
             read: false
           }
         );
