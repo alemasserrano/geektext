@@ -17,11 +17,10 @@ function router(nav) {
   });
 
   client.connect();
-<<<<<<< HEAD
-  var ratingArray = [];
-=======
 
->>>>>>> commit ahora pq soy tonta
+  var ratingArray = [];
+
+
   var ratingNumber = 0;
   var books = [];
   // Do your queries here
@@ -60,11 +59,6 @@ function router(nav) {
             customerName: res.rows[i].cust_name_first,
           });
       }
-<<<<<<< HEAD
-      client.end();
-    });
-
-=======
       //client.end();
     });
 
@@ -78,7 +72,6 @@ function router(nav) {
   //   },
   // ];
 
->>>>>>> commit ahora pq soy tonta
   bookRouter.route('/')
     .get((req, res) => {
       (async function query() {
@@ -96,12 +89,8 @@ function router(nav) {
 
   bookRouter.route('/:id').get((req, res) => {
       const { id } = req.params;
-<<<<<<< HEAD
       const specificBook = books[id-1];
-=======
-      const specificBook = books[id - 1];
 
->>>>>>> commit ahora pq soy tonta
       res.render(
         'bookView',
         {
