@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Library</title>
+  <meta name="generator" content="Bootply" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+  <link href="/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+  <header class="navbar navbar-bright navbar-fixed-top" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" class="navbar-brand">Home</a>
+      </div>
+      <nav class="collapse navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+
+          <li>
+            <a href="/books">Book</a>
+          </li>
+
+          <li>
+            <a href="/authors">Author</a>
+          </li>
+
+        </ul>
+        <ul class="nav navbar-right navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
+            <ul class="dropdown-menu" style="padding:12px;">
+              <form class="form-inline">
+                <button type="submit" class="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button><input
+                  type="text" class="form-control pull-left" placeholder="Search">
+              </form>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="masthead">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <h1>Library
+            <p class="lead"></p>
+          </h1>
+        </div>
+        <div class="col-md-5">
+          <div class="well well-lg">
+            <div class="row">
+              <div class="col-sm-12">
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /cont -->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="top-spacer"> </div>
+        </div>
+      </div>
+    </div><!-- /cont -->
+
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel">
+          <div class="panel-body">
+            <!--/stories-->
+
+            <div class="row">
+              <br>
+              <div class="col-md-2 col-sm-3 text-center">
+                <a class="story-title" href="#"><img alt="" src="http://api.randomuser.me/portraits/thumb/men/58.jpg"
+                    style="width:100px;height:100px" class="img-circle"></a>
+              </div>
+              <div class="col-md-10 col-sm-9">
+                <h3>
+                  <%= book.title %>
+                </h3>
+                <div class="row">
+                  <div class="col-xs-9">
+                    <h4><span class="label label-default">
+                        <%= book.author %></span></h4>
+                    <h4>
+                    </h4>
+                  </div>
+                  <div class="col-xs-3"></div>
+                </div>
+                <div class="col-md-10 col-sm-9">
+                  <h1><span class="star" data-score="<%= book.ratingAverage %>"></span></h1>
+                  <h1>
+                  </h1>
+                  <h4>Average Rating (
+                    <%= book.ratingAverage %>)</h4>
+                  <h5>Based on
+                    <%= book.ratingNumber %> reviews</h5>
+                </div>
+
+                <%for(let i = 0; i < commentsArray.length; i++) {%>
+                <% if(commentsArray[i].idofCommentedBook == book.id) {%>
+                <div class="col-md-12 reniewDiv">
+                  <!-- <div>
+                                <img src="" width="100px" height="100px">
+                              </div> -->
+                  <div class="col-md-8">
+                    <h3>
+                      <%= book.title %></a></h3>
+                    <h4>
+                      <%= book.author %>
+                    </h4>
+                    <p>
+                      <%= commentsArray[i].comment %>
+                    </p>
+                  </div>
+                  <div class="col-md-2" style:"width:150px">
+                    <h3>Rating</h3>
+                    <span class="star" data-score="<%= commentsArray[i].rating %>"></span>
+                  </div>
+                </div>
+                <%}%>
+                <%}%>
+
+                <br><br>
+              </div>
+            </div>
+            <hr>
+            <br><br>
+
+            <!--/stories-->
+
+
+            <a href="/" class="btn btn-primary pull-right btnNext">More <i class="glyphicon glyphicon-chevron-right"></i></a>
+            <a href="/review/<%= book.id %>" class="btn btn-success">Rate this book <i class="glyphicon glyphicon-chevron-right"></i></a>
+
+
+          </div>
+        </div>
+      </div>
+      <!--/col-12-->
+    </div>
+  </div>
+
+
+  <hr>
+
+  <div class="container" id="footer">
+    <div class="row">
+      <div class="col col-sm-12">
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <hr>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- script references -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/rating.js"></script>
+  <script src="/js/jquery.raty.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $.fn.raty.defaults.path = '/images/';
+      $('.star').raty({
+        readOnly: true,
+        score: function (book) {
+          return $(this).attr('data-score');
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>

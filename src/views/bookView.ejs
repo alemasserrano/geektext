@@ -63,14 +63,14 @@
           </h1>
         </div>
         <div class="col-md-5">
-          <div class="well well-lg">
+          <!-- <div class="well well-lg">
             <div class="row">
               <div class="col-sm-12">
 
 
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div><!-- /cont -->
@@ -78,7 +78,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="top-spacer"> </div>
+          <!-- <div class="top-spacer"> </div> -->
         </div>
       </div>
     </div><!-- /cont -->
@@ -88,30 +88,25 @@
 
   <div class="container">
     <div class="row">
-
       <div class="col-md-12">
-
         <div class="panel">
           <div class="panel-body">
-
-
-
             <!--/stories-->
 
             <div class="row">
               <br>
-              <div class="col-md-2 col-sm-3 text-center">
-                <img id="thumbnail-book" alt="<%= book.title %>" src="<%= book.img %>" 
-                  style="width:100px;height:100px">
+              <div class="col-md-6 col-sm-3 text-center">
+                <img id="thumbnail-book" alt="<%= book.title %>" src="<%= book.img %>"
+                  style="width:300px;height:450px">
               </div>
-              <div class="col-md-10 col-sm-9">
+              <div class="col-md-6 col-sm-9">
                 <h3>
                   <%= book.title %>
                 </h3>
                 <div class="row">
                   <div class="col-xs-9">
                     <h4><span class="label label-default">
-                        <%= book.author_name %></span></h4>
+                        <a href="/books/<%= book.author_id %>"><%= book.author_name %></a></span></h4>
                     <h4>
                     </h4>
                     <p>Biography: <%= book.author_bio %></p>
@@ -143,50 +138,34 @@
                     <%= book.ratingNumber %> reviews</h5>
                 </div>
 
-                <!-- <div class="col-md-9 colDiv">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="count">
-                        <h1>
-                          <%= book.ratingNumber %>
-                        </h1>
-                        <h2>Ratings</h2>
-                        <h2>Total Ratings received</h2>
-                      </div>
-
-                    </div>
-                  </div>
-                </div> -->
-                <br><br>
-
-                <!-- <% if(books.ratingNumber > 0) { %> -->
-                <%for(let i = 0; i < book.ratingArray.length; i++) { %>
+                <%for(let i = 0; i < commentsArray.length; i++) {%>
+                <% if(commentsArray[i].idofCommentedBook == book.id ) {%>
                 <div class="col-md-12 reniewDiv">
-                  <div>
-                    <img src="" width="100px" height="100px">
-                  </div>
+                  <!-- <div>
+                                <img src="" width="100px" height="100px">
+                              </div> -->
                   <div class="col-md-8">
-                    <h3>
-                      <a href="#">
-                        <%= book.title %></a>
-                    </h3>
                     <h4>
-                      <%= book.author_name %>
+                      <%= commentsArray[i].customerName %>
                     </h4>
+                    <p>
+                      <%= commentsArray[i].comment %>
+                    </p>
                   </div>
                   <div class="col-md-2" style:"width:150px">
                     <h3>Rating</h3>
-                    <span class="star" data-score="<%= book.ratingAverage %>"></span>
+                    <span class="star" data-score="<%= commentsArray[i].rating %>"></span>
                   </div>
                 </div>
                 <%}%>
-                <!-- <% } %> -->
+                <%}%>
 
+                <br><br>
               </div>
             </div>
             <hr>
             <br><br>
-            
+
             <div id="thumbnail-closeup" class="closeup">
               <span class="close">&times;</span>
               <img class="closeup-image" id="img01">
@@ -202,9 +181,6 @@
 
           </div>
         </div>
-
-
-
       </div>
       <!--/col-12-->
     </div>
@@ -263,7 +239,7 @@
 
     var span = document.getElementsByClassName("close")[0];
 
-    span.onclick = function() { 
+    span.onclick = function() {
         closeup.style.display = "none";
     }
   </script>

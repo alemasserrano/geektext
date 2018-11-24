@@ -100,7 +100,7 @@ $(document).ready(function () {
         }
 
         if (valid === true) {
-
+            console.log('send request');
             $.ajax({
                 url: '/review/' + id,
                 type: 'POST',
