@@ -5,27 +5,20 @@ const user = 'cen4010master';
 const host = 'cen4010dbinstance.cuo3jpom4wfm.us-east-1.rds.amazonaws.com';
 const database = 'cen4010db';
 const password = 'cen4010password';
-const csrf = require ('csurf');
 
-
-var csrfProtection = csrf();
-authRouter.use(csrfProtection);
-
-function router(){
+function router() {
 
     authRouter.route('/')
-        .get((req,res) => {
+        .get((req, res) => {
 
-                res.render(
-                    'user/signup',
+            res.render(
+                'user/signup',
 
                     {
-
-                        csrfToken: req.csrfToken()
-
-
-                    }
-                );
+                    csrfToken: req.csrfToken(),
+                    Title: req.title()
+                }
+            );
         });
 
     // authRouter.post((req, res) =>{
