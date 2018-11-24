@@ -61,6 +61,7 @@ const nav = [
   { link: '/books', title: 'Book' },
   { link: '/authors', title: 'Author' },
   { link: '/cart', title: 'Cart'},
+
   { link: '/userregistration', title: 'Register'},
 
 ];
@@ -79,6 +80,7 @@ app.use('/', authRouter);
 app.use('/review', reviewRouter);
 app.use('/reviewlist', reviewListRouter);
 
+
 app.use('/cart', cartRouter);
 
 app.get('/', (req, res) => {
@@ -93,7 +95,6 @@ app.get('/', (req, res) => {
         ],
       title: 'Library',
       messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}
-
 
 
     }

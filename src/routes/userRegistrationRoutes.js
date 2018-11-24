@@ -6,48 +6,40 @@ const user = 'cen4010master';
 const host = 'cen4010dbinstance.cuo3jpom4wfm.us-east-1.rds.amazonaws.com';
 const database = 'cen4010db';
 const password = 'cen4010password';
+var csrf = require('csurf'); //Security of token
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
+var bodyParser = require('body-parser');
+bookRouter.use(bodyParser.urlencoded({ extended: false }));
+bookRouter.use(bodyParser.json());
+
+//bookRouter.use(express.static(__dirname + '/userRegistrationForm'));
+
+var client = new Client({
+  user: user,
+  host: host,
+  database: database,
+  password: password,
+  port: 5432,
+});
 
 function router(nav) {
-  var client = new Client({
-    user: user,
-    host: host,
-    database: database,
-    password: password,
-    port: 5432,
+
+  //Security of token
+  bookRouter.use(csrf()); // Security, has to be after cookie and session.
+  bookRouter.use(function (req, res, next) {
+    var token = req.csrfToken();
+    res.cookie('XSRF-TOKEN', token);
+    res.locals.csrfToken = token;
+    next();
   });
 
-  client.connect();
-  var ratingArray = [];
-  var ratingNumber = 0;
-  var books = [];
-  // Do your queries here
-  var result = client.query('SELECT book.book_id, book.book_title, book.book_description , book.book_price, author.author_name_first, author.author_name_last, author.author_biography, author.author_id, book.book_image, g.genre_name, p.publisher_name, book.book_release_date, Count(r.review_rating), CAST(AVG(r.review_rating)AS DECIMAL(10,1)) FROM book JOIN book_author ba ON book.book_id=ba.book_id INNER JOIN author ON author.author_id=ba.author_id JOIN book_genre bg ON book.book_id=bg.book_id JOIN genre g ON bg.genre_id=g.genre_id LEFT Join review r ON book.book_id=r.book_id JOIN publisher p ON book.publisher_id=p.publisher_id Group by book.book_id, book.book_title, author.author_name_first, author.author_name_last, author.author_biography, author.author_id, g.genre_name, p.publisher_name, book.book_release_date',
-    (err, res) => {
-      for (i = 0; i < res.rows.length; i++) {
-        books.push(
-          {
-            id: res.rows[i].book_id,
-            img: res.rows[i].book_image,
-            title: res.rows[i].book_title,
-            genre: res.rows[i].genre_name,
-            author_id: res.rows[i].author_id,
-            author_name: res.rows[i].author_name_first + " " + res.rows[i].author_name_last,
-            author_bio: res.rows[i].author_biography,
-            ratingNumber: res.rows[i].count,
-            ratingAverage: res.rows[i].avg,
-            description: res.rows[i].book_description,
-            price: res.rows[i].book_price,
-            publisher_name: res.rows[i].publisher_name,
-            release_date: res.rows[i].book_release_date,
-            read: false
-          });
-        ratingArray.push(
-          {
-            ratingValue: ratingNumber,
-          });
-      }
-      client.end();
-    });
+  bookRouter.post("/newRegistration", multipartMiddleware, function (req, res, next) {
+
+    console.log("Inserted!!!!!");
+  });
+
 
   bookRouter.route('/')
     .get((req, res) => {
@@ -56,27 +48,14 @@ function router(nav) {
           'userRegistrationForm',
           {
             nav,
-            title: 'User Registration Form',
-            books: books
+            title: 'User Regitration',
           }
         );
       }());
     });
 
+ 
 
-  bookRouter.route('/:id').get((req, res) => {
-      const { id } = req.params;
-      const specificBook = books[id-1];
-      res.render(
-        'bookView',
-        {
-          nav,
-          title: 'Library',
-          book: specificBook,
-          books: books
-        }
-      );
-    });
   return bookRouter;
 }
 module.exports = router;
