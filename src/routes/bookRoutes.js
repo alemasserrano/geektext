@@ -80,21 +80,24 @@ function getBooksFromDb(sortBy, direction, browse, limit, page) {
           reject(err);
         }
 
-        for (i = 0; i < res.rows.length; i++) {
-          
+        for (let i = 0; i < res.rows.length; i++) {
           books.push(
             {
               id: res.rows[i].book_id,
+              img: res.rows[i].book_image,
               title: res.rows[i].book_title,
               genre: res.rows[i].genre_name,
-              author: res.rows[i].author_name_first,
-              topSellers : res.rows[i].top_seller,
+              author_id: res.rows[i].author_id,
+              author_name: res.rows[i].author_name_first + " " + res.rows[i].author_name_last,
+              author_bio: res.rows[i].author_biography,
               ratingNumber: res.rows[i].count,
               ratingAverage: res.rows[i].avg,
               description: res.rows[i].book_description,
               price: res.rows[i].book_price,
+              publisher_name: res.rows[i].publisher_name,
+              release_date: res.rows[i].book_release_date,
+              topSellers : res.rows[i].top_seller,
               book_rating: res.rows[i].book_rating,
-              releasedate: res.rows[i].book_release_date,
               read: false
             });
         }
@@ -145,5 +148,4 @@ function router(nav) {
 
   return bookRouter;
 }
-
 module.exports = router;
