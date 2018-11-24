@@ -93,8 +93,7 @@
             <div class="row">
               <br>
               <div class="col-md-6 col-sm-3 text-center">
-                <img id="thumbnail-book" alt="<%= book.title %>" src="<%= book.img %>"
-                  style="width:300px;height:450px">
+                <img id="thumbnail-book" alt="<%= book.title %>" src="<%= book.img %>" style="width:300px;height:450px">
               </div>
               <div class="col-md-6 col-sm-9">
                 <h3>
@@ -106,10 +105,12 @@
                         <a href="/books/author/<%= book.author_id %>"><%= book.author_name %></a></span></h4>
                     <h4>
                     </h4>
-                    <p>Biography: <%= book.author_bio %></p>
+                    <p>Biography:
+                      <%= book.author_bio %>
+                    </p>
                     <h4><span class="label label-default">
                         Description</span></h4>
-                        <h4>
+                    <h4>
                     </h4>
                     <p> <%= book.description %> </p>
                     <form action="/cart/add-to-cart/<%= book.id %>" method="post">
@@ -118,12 +119,14 @@
                   </div>
                   <div class="col-xs-3">
                     <h4><span class="label label-default">
-                        Publisher: <%= book.publisher_name %></span></h4>
-                        <h4>
+                        Publisher:
+                        <%= book.publisher_name %></span></h4>
+                    <h4>
                     </h4>
                     <h4><span class="label label-default">
-                        Released: <%= book.release_date %></span></h4>
-                        <h4>
+                        Released:
+                        <%= book.release_date %></span></h4>
+                    <h4>
                     </h4>
                   </div>
                 </div>
@@ -135,30 +138,45 @@
                   <h4>Average Rating (
                     <%= book.ratingAverage %>)</h4>
                   <h5>Based on
-                    <%= book.ratingNumber %> reviews</h5>
+                    <%= book.review.length %> reviews</h5>
                 </div>
 
-                <%for(let i = 0; i < commentsArray.length; i++) {%>
-                <% if(commentsArray[i].idofCommentedBook == book.id ) {%>
+                <% for(let i = 0; i < book.review.length; i++) { %>
                 <div class="col-md-12 reniewDiv">
-                  <!-- <div>
-                                <img src="" width="100px" height="100px">
-                              </div> -->
                   <div class="col-md-8">
-                    <h4>
-                      <%= commentsArray[i].customerName %>
-                    </h4>
+                    <h3>
+                      <%= book.review[i].cust_name_first %>
+                    </h3>
+
+                    <!-- <dialog id="favDialog">
+                      <form method="dialog">
+                        <p><label>Edit name displayed with the review:
+                            <select>
+                              <option><%= book.review[i].cust_name_first %></option>
+                              <option><%= book.review[i].cust_nickname %></option>
+                              <option>Anonymous</option>
+                            </select>
+                          </label></p>
+                        <menu>
+                          <button>Cancel</button>
+                          <button>Confirm</button>
+                        </menu>
+                      </form>
+                    </dialog>
+
+                    <menu>
+                      <button id="updateDetails">Update details</button>
+                    </menu> -->
                     <p>
-                      <%= commentsArray[i].comment %>
+                      <%= book.review[i].review_comment %>
                     </p>
                   </div>
-                  <div class="col-md-2" style:"width:150px">
+                  <div class="col-md-4" style:"width:150px">
                     <h3>Rating</h3>
-                    <span class="star" data-score="<%= commentsArray[i].rating %>"></span>
+                    <span class="star" data-score="<%= book.review[i].review_rating %>"></span>
                   </div>
                 </div>
-                <%}%>
-                <%}%>
+                <% } %>
 
                 <br><br>
               </div>
@@ -231,16 +249,16 @@
     var img = document.getElementById('thumbnail-book');
     var closeupImg = document.getElementById("img01");
     var captionText = document.getElementById("closeup-caption");
-    img.onclick = function(){
-        closeup.style.display = "block";
-        closeupImg.src = this.src;
-        captionText.innerHTML = this.alt;
+    img.onclick = function () {
+      closeup.style.display = "block";
+      closeupImg.src = this.src;
+      captionText.innerHTML = this.alt;
     }
 
     var span = document.getElementsByClassName("close")[0];
 
-    span.onclick = function() {
-        closeup.style.display = "none";
+    span.onclick = function () {
+      closeup.style.display = "none";
     }
   </script>
 
