@@ -60,7 +60,7 @@ app.use(function(req, res, next){
 const nav = [
   { link: '/books', title: 'Book' },
   { link: '/cart', title: 'Cart'},
-  { link: '/userregistration', title: 'Register'},
+  { link: '/user/signup', title: 'Sign Up'},
 
 ];
 
