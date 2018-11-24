@@ -55,9 +55,70 @@
                 </div>
               </header>
 
-            <div class="">
-            <h3> Your Cart </h3>
-            </div>
+
+              <h1>Shopping Cart</h1>
+
+              <div class="shopping-cart">
+              
+                <div class="column-labels">
+                  <label class="product-image">Image</label>
+                  <label class="product-details">Product</label>
+                  <label class="product-price">Price</label>
+                  <label class="product-quantity">Quantity</label>
+                  <label class="product-removal">Remove</label>
+                  <label class="product-line-price">Total</label>
+                </div>
+
+
+            <% for(let i = 0; i < books.length; i++) { %>
+
+                <div class="product">
+                  <div class="product-image">
+                    <img src="<%=books[i].image %>">
+                  </div>
+                  <div class="product-details">
+                    <div class="product-title"> <%=books[i].title %> </div>
+                    <div class="product-author"> <%=books[i].author %> </div>
+                    <p class="product-description"><%=books[i].description %></p>
+                  </div>
+                  <div class="product-price"><%=books[i].price %></div>
+                  <div class="product-quantity">
+                    <input type="number" value="1" min="1">
+                  </div>
+                  <div class="product-saving">
+                    <button class="save-product">
+                      Save
+                    </button>
+                  </div>
+                  <div class="product-removal">
+                    <button class="remove-product">
+                      Remove
+                    </button>
+                  </div>
+                  <div class="product-line-price"> <%=books[i].price %> </div>
+                </div>
+                <% } %>
+         
+              
+                <div class="totals">
+                  <div class="totals-item">
+                    <label>Subtotal</label>
+                    <div class="totals-value" id="cart-subtotal">71.97</div>
+                  </div>
+                  <!-- <div class="totals-item totals-item-total">
+                    <label>Grand Total</label>
+                    <div class="totals-value" id="cart-total">90.57</div>
+                  </div>
+                </div> -->
+                    
+                    <button class="checkout">Checkout</button>
+                    <label class="product-save">Save for Later</label>
+
+              </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/cart.js"></script>
 
 
 </body>
