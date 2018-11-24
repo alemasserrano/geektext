@@ -1,5 +1,5 @@
 const express = require('express');
-const bookRouter = express.Router();
+const userregistrationRouter = express.Router();
 const debug = require('debug')('app:bookRoutes');
 const { Client } = require('pg');
 const user = 'cen4010master';
@@ -11,10 +11,10 @@ var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
 var bodyParser = require('body-parser');
-bookRouter.use(bodyParser.urlencoded({ extended: false }));
-bookRouter.use(bodyParser.json());
+userregistrationRouter.use(bodyParser.urlencoded({ extended: false }));
+userregistrationRouter.use(bodyParser.json({type: 'application/json'}));
 
-//bookRouter.use(express.static(__dirname + '/userRegistrationForm'));
+userregistrationRouter.use(express.static(__dirname + '/userRegistrationForm'));
 
 var client = new Client({
   user: user,
@@ -24,24 +24,24 @@ var client = new Client({
   port: 5432,
 });
 
+
 function router(nav) {
 
   //Security of token
-  bookRouter.use(csrf()); // Security, has to be after cookie and session.
-  bookRouter.use(function (req, res, next) {
+  userregistrationRouter.use(csrf()); // Security, has to be after cookie and session.
+  userregistrationRouter.use(function (req, res, next) {
     var token = req.csrfToken();
     res.cookie('XSRF-TOKEN', token);
     res.locals.csrfToken = token;
     next();
   });
 
-  bookRouter.post("/newRegistration", multipartMiddleware, function (req, res, next) {
+  userregistrationRouter.route("/newRegistration").all((req, res) => {
+      console.log("Inserted!!!!!");
+  }); 
 
-    console.log("Inserted!!!!!");
-  });
 
-
-  bookRouter.route('/')
+  userregistrationRouter.route('/')
     .get((req, res) => {
       (async function query() {
         res.render(
@@ -54,8 +54,8 @@ function router(nav) {
       }());
     });
 
- 
 
-  return bookRouter;
+
+  return userregistrationRouter;
 }
 module.exports = router;

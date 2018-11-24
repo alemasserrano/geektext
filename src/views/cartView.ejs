@@ -17,47 +17,108 @@
 
   <body>
 
-        <header class="navbar navbar-bright navbar-fixed-top" role="banner">
-                <div class="container">
-                  <div class="navbar-header">
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </button>
-                    <a href="/" class="navbar-brand">Home</a>
-                  </div>
-                  <nav class="collapse navbar-collapse" role="navigation">
-                    <ul class="nav navbar-nav">
-            
-                      <li>
-                        <a href="/books">Book</a>
-                      </li>
-            
-                      <li>
-                        <a href="/authors">Author</a>
-                      </li>
-            
-                    </ul>
-                    <ul class="nav navbar-right navbar-nav">
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
-                        <ul class="dropdown-menu" style="padding:12px;">
-                          <form class="form-inline">
-                            <button type="submit" class="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button><input
-                              type="text" class="form-control pull-left" placeholder="Search">
-                          </form>
-                        </ul>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </header>
+    <header class="navbar navbar-bright navbar-fixed-top" role="banner">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/" class="navbar-brand">Home</a>
+        </div>
+        <nav class="collapse navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <%for(let i = 0; i < nav.length; i++) {%>
+            <li>
+              <a href="<%=nav[i].link%>">
+                <%=nav[i].title%></a>
+            </li>
+            <%}%>
+          </ul>
+          <ul class="nav navbar-right navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
+              <ul class="dropdown-menu" style="padding:12px;">
+                <form class="form-inline">
+                  <button type="submit" class="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button><input
+                    type="text" class="form-control pull-left" placeholder="Search">
+                </form>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-            <div class="">
-            <h3> Your Cart </h3>
-            </div>
+
+              <h1>Shopping Cart</h1>
+
+              <div class="shopping-cart">
+              
+                <div class="column-labels">
+                  <label class="product-image">Image</label>
+                  <label class="product-details">Product</label>
+                  <label class="product-price">Price</label>
+                  <label class="product-quantity">Quantity</label>
+                  <label class="product-removal">Remove</label>
+                  <label class="product-line-price">Total</label>
+                </div>
+
+
+            <% for(let i = 0; i < books.length; i++) { %>
+              <form action="/cart/remove/<%= i %>" method="get">
+                <div class="product">
+                  <div class="product-image">
+                    <img src="<%=books[i].image %>">
+                  </div>
+                  <div class="product-details">
+                    <div class="product-title"> <%=books[i].title %> </div>
+                    <div class="product-author"> <%=books[i].author %> </div>
+                    <p class="product-description"><%=books[i].description %></p>
+                  </div>
+                  <div class="product-price"><%=books[i].price %></div>
+                  <form action="/cart/quantity/<%= i %>" method="get">
+                    <div class="product-quantity">
+                      <input type="number" value="<%=books[i].count %>" min="1">
+                    </div>
+                      <div class="product-saving">
+                        <button class="save-product" type="submit">
+                          Save
+                        </button>
+                    </div>
+                  </form>
+                    <div class="product-removal">
+                      <button class="remove-product" type="submit">
+                        Remove
+                      </button>  
+                    </div>
+                  <div class="product-line-price"> <%=books[i].price %> </div>
+                </div>
+              </form>
+                <% } %>
+         
+              
+                <div class="totals">
+                  <div class="totals-item">
+                    <label>Subtotal</label>
+                    <div class="totals-value" id="cart-subtotal">0.00</div>
+                  </div>
+                  <!-- <div class="totals-item totals-item-total">
+                    <label>Grand Total</label>
+                    <div class="totals-value" id="cart-total">90.57</div>
+                  </div>
+                </div> -->
+                    
+                    <button class="checkout">Checkout</button>
+                    <label class="product-save">Save for Later</label>
+
+              </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/cart.js"></script>
 
 
 </body>
