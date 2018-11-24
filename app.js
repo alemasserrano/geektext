@@ -27,17 +27,11 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-
-// sessionStorage = new pgSession({
-//   conString: config.db.connection,
-//   tableName: config.session.tableName
-// });
 app.use(session({ 
   secret: 'keyboard cat',
   saveUninitialized: false,
   resave: false,
   cookie: {maxAge: 180 * 60 * 1000 }
-  // store: new pgStore(p.db)
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -46,26 +40,20 @@ app.use(expressSession({secret: 'keyboard cat'}))
 app.use(bodyParser());
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
-// require('./src/config/passport.js')(app);
 app.use(express.static(path.join(__dirname, '/public/')));
 app.use((req, res, next) => {
-  debug('my middleware');
-  next();
-});
-
-
 app.use(express.static(path.join(__dirname, '/public/')));
+debug('my middleware');
+next();
+});
 app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
-
-
 
 app.use(function(req, res, next){
    res.locals.login = req.isAuthenticated();
     res.locals.session = req.session;
     delete req.session.user;
-
     next();
 })
 
@@ -81,7 +69,6 @@ const reviewRouter = require('./src/routes/review')(nav);
 const cartRouter = require('./src/routes/cartRoute')(nav);
 
 app.use('/books', bookRouter);
-// app.use('/admin', adminRouter);
 app.use('/user/signin', authRouter);
 app.use('/review', reviewRouter);
 app.use('/cart', cartRouter);
