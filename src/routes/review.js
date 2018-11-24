@@ -1,4 +1,4 @@
-//var async = require('async');
+ //var async = require('async');
 const express = require('express');
 const reviewRouter = express.Router();
 const { Client } = require('pg');
@@ -9,6 +9,7 @@ const password = 'cen4010password';
 
 
 function router(nav) {
+
   var client = new Client({
     user: user,
     host: host,
@@ -16,6 +17,7 @@ function router(nav) {
     password: password,
     port: 5432,
   });
+  
 
   client.connect();
 
