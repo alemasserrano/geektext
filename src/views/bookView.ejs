@@ -141,27 +141,20 @@
                   <h4>Average Rating (
                     <%= book.ratingAverage %>)</h4>
                   <h5>Based on
-                    <%= book.ratingNumber %> reviews</h5>
+                    <%= book.review.length %> reviews</h5>
                 </div>
 
-                <%for(let i = 0; i < book.review.length; i++) {%>
-                <!-- <% if(books[i].review.book_id == book.id ) {%> -->
-                <div class="col-md-12 reniewDiv">
-                  <div class="col-md-8">
-                    <!-- <h4>
-                      <%= books[i].customerName %>
-                    </h4> -->
-                    <p>
-                      <%= book.review[i].review_comment %>
-                    </p>
-                  </div>
-                  <div class="col-md-2" style:"width:150px">
-                    <h3>Rating</h3>
-                    <span class="star" data-score="<%= book.review[i].review_rating %>"></span>
-                  </div>
+                <% for(let i = 0; i < book.review.length; i++) { %>
+                <div class="row">
+                    <div class="col-md-4" style:"width:150px">
+                      <h3>Rating</h3>
+                      <span class="star" data-score="<%= book.review[i].review_rating %>"></span>
+                    </div>
+                    <div class="col-md-8">
+                      <p><%= book.review[i].review_comment %></p>
+                    </div>
                 </div>
-                <!-- <%}%> -->
-                <%}%>
+                <% } %>
 
                 <br><br>
               </div>
