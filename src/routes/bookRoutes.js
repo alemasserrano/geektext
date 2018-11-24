@@ -1,21 +1,20 @@
 const express = require('express');
 const bookRouter = express.Router();
 const debug = require('debug')('app:bookRoutes');
-const { Client } = require('pg');
+const { Client, Pool } = require('pg');
 const user = 'cen4010master';
 const host = 'cen4010dbinstance.cuo3jpom4wfm.us-east-1.rds.amazonaws.com';
 const database = 'cen4010db';
 const password = 'cen4010password';
 
 function getBooksFromDb(sortBy, direction, browse, limit, page) {
-  var client = new Client({
+  var client = new Pool({
     user: user,
     host: host,
     database: database,
     password: password,
     port: 5432,
   });
-  client.connect();
 
   return new Promise((resolve, reject) => {
     let innerQuery = 'SELECT book.book_id, book.book_title, book.book_description , book.book_price, author.author_name_first, author.author_name_last, author.author_biography, author.author_id, book.book_image, g.genre_name, p.publisher_name, book.book_release_date, Count(r.review_rating), CAST(AVG(r.review_rating)AS DECIMAL(10,1)) FROM book JOIN book_author ba ON book.book_id=ba.book_id INNER JOIN author ON author.author_id=ba.author_id JOIN book_genre bg ON book.book_id=bg.book_id JOIN genre g ON bg.genre_id=g.genre_id LEFT Join review r ON book.book_id=r.book_id JOIN publisher p ON book.publisher_id=p.publisher_id Group by book.book_id, book.book_title, author.author_name_first, author.author_name_last, author.author_biography, author.author_id, g.genre_name, p.publisher_name, book.book_release_date';
@@ -107,11 +106,26 @@ function getBooksFromDb(sortBy, direction, browse, limit, page) {
         }
 
         resolve(books);
-
-        client.end();
       });
+  }).then(books => Promise.all(
+    books.map(book => new Promise((resolve, reject) => {
+      client.query(
+        `SELECT r.book_id, r.review_comment, r.review_rating FROM review r WHERE book_id = ${book.id}`,
+        (err, res) => {
+          if (err) {
+            reject(err);
+            return;
+          }
 
-  });
+          resolve(Object.assign({}, book, {
+            review: res.rows
+          }));
+      });
+    }))
+  )).then(books => {
+    client.end();
+    return books;
+  }).catch(() => client.end());
 }
 
 function router(nav) {
