@@ -167,7 +167,9 @@
                             <h3> <%=books[i].title%> </h3>
                             <h3>  <%=books[i].author_name%> </h3>
                             <p> <%=books[i].genre%></p>
-                            <p>Book Rating: <%=books[i].ratingNumber%> </p>
+                            <p class="description"> <%=books[i].description%> </p>
+                            <p> Book Release Date: <%=books[i].release_date%> </p>
+                            <p> Book Rating: <%=books[i].ratingNumber%> </p>
                             <div class="read pull-right btn btn-success">
                                 <a href="/books/<%=books[i].id%>"> Read More</a></small>
                               </div>
