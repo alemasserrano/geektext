@@ -160,17 +160,7 @@
             <!--/stories-->
             <%for(let i = 0; i < books.length; i++) {%>
             <div class="row">
-<<<<<<< HEAD
 
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="<%=books[i].image %>">
-                        <input class="form-control" id="id" value="<%= books[i].id %>" type="hidden">
-                        <div class="caption">
-                            <h3 id = "bookTitle"> <%=books[i].title%> </h3>
-                            <h3 id="bookAuthor">  <%=books[i].author%> </h3>
-                            <p class="description" id="description"> <%=books[i].description%> </p>
-=======
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <img src= '<%=books[i].img%>' alt="..." class="img-responsive">
@@ -179,7 +169,7 @@
                             <h3>  <%=books[i].author_name%> </h3>
                             <p> <%=books[i].genre%></p>
                             <p>Book Rating: <%=books[i].ratingNumber%> </p>
->>>>>>> 4e5b7ab13f68cebc7db16266d03ea222193acbeb
+
                             <div class="read pull-right btn btn-success">
                                 <a href="/books/<%=books[i].id%>"> Read More</a></small>
                               </div>
@@ -193,17 +183,9 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
-                
-                </div>
-                
-                </div>
-
-
-=======
                   </div>
               </div>
->>>>>>> 4e5b7ab13f68cebc7db16266d03ea222193acbeb
+
             <%}%>
             <!--/stories-->
             <a href="/" class="btn btn-primary pull-right btnNext">More <i class="glyphicon glyphicon-chevron-right"></i></a>
