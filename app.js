@@ -59,9 +59,7 @@ app.use(function(req, res, next){
 
 const nav = [
   { link: '/books', title: 'Book' },
-  { link: '/authors', title: 'Author' },
   { link: '/cart', title: 'Cart'},
-
   { link: '/userregistration', title: 'Register'},
 
 ];
@@ -89,7 +87,6 @@ app.get('/', (req, res) => {
     {
 
       nav: [{ link: '/books', title: 'Books' },
-      { link: '/authors', title: 'Authors' },
         { link: '/cart', title: 'Cart'}, 
         {link: '/userRegistration', title: 'Register' },
         ],

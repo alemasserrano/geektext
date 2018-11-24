@@ -7,7 +7,7 @@ const host = 'cen4010dbinstance.cuo3jpom4wfm.us-east-1.rds.amazonaws.com';
 const database = 'cen4010db';
 const password = 'cen4010password';
 
-function getBooksFromDb(sortBy, direction, browse, limit, page) {
+function getBooksFromDb(sortBy, direction, browse, limit, page, author) {
   var client = new Pool({
     user: user,
     host: host,
@@ -34,7 +34,10 @@ function getBooksFromDb(sortBy, direction, browse, limit, page) {
     if (realDirection != 'desc' && realDirection != 'asc') {
       realDirection = 'asc';
     }
-
+    
+    if (author){
+      innerQuery = `SELECT book.book_id, book.book_title, book.book_description , book.book_price, author.author_name_first, author.author_name_last, author.author_biography, author.author_id, book.book_image, g.genre_name, p.publisher_name, book.book_release_date, Count(r.review_rating), CAST(AVG(r.review_rating)AS DECIMAL(10,1)) FROM book JOIN book_author ba ON book.book_id=ba.book_id INNER JOIN author ON author.author_id=ba.author_id JOIN book_genre bg ON book.book_id=bg.book_id JOIN genre g ON bg.genre_id=g.genre_id LEFT Join review r ON book.book_id=r.book_id JOIN publisher p ON book.publisher_id=p.publisher_id WHERE author.author_id = '${author}' Group by book.book_id, book.book_title, author.author_name_first, author.author_name_last, author.author_biography, author.author_id, g.genre_name, p.publisher_name, book.book_release_date`;
+    }
     if (browse) {
       if (bookCategories.hasOwnProperty(browse)) {
         // Browsing by genre
@@ -165,7 +168,7 @@ function router(nav) {
           {
             nav,
             title: 'Library',
-            books: await getBooksFromDb(sortBy, direction, browse, limit, page)
+            books: await getBooksFromDb(sortBy, direction, browse, limit, page, "")
           }
         );
     });
@@ -189,21 +192,14 @@ function router(nav) {
         );
     });
 
-    bookRouter.route('/:author_id').get(async (req, res) => {
-        const { author } = req.params;
-        const books = await getBooksFromDb();
-        var author_books = [];
-        for (n = 0; n < books.length; n++){
-          if (book[i].author_id == author){
-            author_books.push(book[i]);
-          }
-        }
+    bookRouter.route('/author/:author_id').get(async (req, res) => {
+        const { author_id } = req.params;
         res.render(
           'bookListView',
           {
             nav,
             title: 'Library',
-            books: auhor_books
+            books: await getBooksFromDb("", "", "", "", "", author_id)
           }
         );
       });
