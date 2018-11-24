@@ -14,24 +14,22 @@ function router() {
             res.render(
                 'user/signup',
 
-                {
-
+                    {
+                    csrfToken: req.csrfToken(),
                     Title: req.title()
-
-
                 }
             );
         });
 
-    authRouter.post((req, res) => {
+    // authRouter.post((req, res) =>{
+    //     res.redirect('/books');
+    // });
+
+    authRouter.post('/user/signup', function(req, res, next){
         res.redirect('/books');
     });
 
-
-    return authRouter;
-}
+        return authRouter;
+    }
 
 module.exports = router;
-
-
-
