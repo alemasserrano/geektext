@@ -96,8 +96,7 @@
             <div class="row">
               <br>
               <div class="col-md-6 col-sm-3 text-center">
-                <img id="thumbnail-book" alt="<%= book.title %>" src="<%= book.img %>"
-                  style="width:300px;height:450px">
+                <img id="thumbnail-book" alt="<%= book.title %>" src="<%= book.img %>" style="width:300px;height:450px">
               </div>
               <div class="col-md-6 col-sm-9">
                 <h3>
@@ -106,24 +105,31 @@
                 <div class="row">
                   <div class="col-xs-9">
                     <h4><span class="label label-default">
-                        <a href="/books/<%= book.author_id %>"><%= book.author_name %></a></span></h4>
+                        <a href="/books/<%= book.author_id %>">
+                          <%= book.author_name %></a></span></h4>
                     <h4>
                     </h4>
-                    <p>Biography: <%= book.author_bio %></p>
+                    <p>Biography:
+                      <%= book.author_bio %>
+                    </p>
                     <h4><span class="label label-default">
                         Description</span></h4>
-                        <h4>
+                    <h4>
                     </h4>
-                    <p> <%= book.description %> </p>
+                    <p>
+                      <%= book.description %>
+                    </p>
                   </div>
                   <div class="col-xs-3">
                     <h4><span class="label label-default">
-                        Publisher: <%= book.publisher_name %></span></h4>
-                        <h4>
+                        Publisher:
+                        <%= book.publisher_name %></span></h4>
+                    <h4>
                     </h4>
                     <h4><span class="label label-default">
-                        Released: <%= book.release_date %></span></h4>
-                        <h4>
+                        Released:
+                        <%= book.release_date %></span></h4>
+                    <h4>
                     </h4>
                   </div>
                 </div>
@@ -138,26 +144,23 @@
                     <%= book.ratingNumber %> reviews</h5>
                 </div>
 
-                <%for(let i = 0; i < commentsArray.length; i++) {%>
-                <% if(commentsArray[i].idofCommentedBook == book.id ) {%>
+                <%for(let i = 0; i < book.review.length; i++) {%>
+                <!-- <% if(books[i].review.book_id == book.id ) {%> -->
                 <div class="col-md-12 reniewDiv">
-                  <!-- <div>
-                                <img src="" width="100px" height="100px">
-                              </div> -->
                   <div class="col-md-8">
-                    <h4>
-                      <%= commentsArray[i].customerName %>
-                    </h4>
+                    <!-- <h4>
+                      <%= books[i].customerName %>
+                    </h4> -->
                     <p>
-                      <%= commentsArray[i].comment %>
+                      <%= book.review[i].review_comment %>
                     </p>
                   </div>
                   <div class="col-md-2" style:"width:150px">
                     <h3>Rating</h3>
-                    <span class="star" data-score="<%= commentsArray[i].rating %>"></span>
+                    <span class="star" data-score="<%= book.review[i].review_rating %>"></span>
                   </div>
                 </div>
-                <%}%>
+                <!-- <%}%> -->
                 <%}%>
 
                 <br><br>
@@ -231,16 +234,16 @@
     var img = document.getElementById('thumbnail-book');
     var closeupImg = document.getElementById("img01");
     var captionText = document.getElementById("closeup-caption");
-    img.onclick = function(){
-        closeup.style.display = "block";
-        closeupImg.src = this.src;
-        captionText.innerHTML = this.alt;
+    img.onclick = function () {
+      closeup.style.display = "block";
+      closeupImg.src = this.src;
+      captionText.innerHTML = this.alt;
     }
 
     var span = document.getElementsByClassName("close")[0];
 
-    span.onclick = function() {
-        closeup.style.display = "none";
+    span.onclick = function () {
+      closeup.style.display = "none";
     }
   </script>
 

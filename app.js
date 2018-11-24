@@ -60,7 +60,6 @@ const userregistrationRouter = require('./src/routes/userRegistrationRoutes')(na
 // const authRouter = require('./src/routes/authRoutes')(nav);
 const authRouter = require('./src/routes/userLogRoute')();
 const reviewRouter = require('./src/routes/review')(nav);
-const reviewListRouter = require('./src/routes/bookReviewsListRoute')(nav);
 const cartRouter = require('./src/routes/cartRoute')(nav);
 
 app.use('/books', bookRouter);
@@ -68,7 +67,6 @@ app.use('/userRegistration', userregistrationRouter); // point to user registrat
 // app.use('/admin', adminRouter);
 app.use('/', authRouter);
 app.use('/review', reviewRouter);
-app.use('/reviewlist', reviewListRouter);
 app.use('/cart', cartRouter);
 
 app.get('/', (req, res) => {
@@ -89,4 +87,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   debug(`listening at port ${chalk.green(port)}`);
 });
-

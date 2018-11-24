@@ -1,4 +1,3 @@
-//var async = require('async');
 const express = require('express');
 const reviewRouter = express.Router();
 const { Client } = require('pg');
@@ -19,23 +18,9 @@ function router(nav) {
 
   client.connect();
 
-  // var bookReview = [];
-  // //Do your queries here
-  // var postresult = client.query("INSERT INTO public.review(order_id, book_id, review_rating, review_comment) VALUES(" + "2" + "," + res.body.book_id + "," + res.body.clickedValue + "," + res.body.review + ");",
-  //   (req, res) => {
-  //     bookReview.push(
-  //       {
-  //         orderId: 2,
-  //         bookIdtoReview: res.body.book_id,
-  //         rating: res.body.clickedValue,
-  //         review: res.body.review,
-  //       });
-  //     //client.end();
-  //   });
-
   var books = [];
   // Do your queries here
-  var result = client.query('SELECT book.book_id, book.book_title, author.author_name_first, g.genre_name, Count(r.review_rating), CAST(AVG(r.review_rating)AS DECIMAL(10,1)) FROM book JOIN book_author ba ON book.book_id=ba.book_id INNER JOIN author ON author.author_id=ba.author_id JOIN book_genre bg ON book.book_id=bg.book_id JOIN genre g ON bg.genre_id=g.genre_id LEFT Join review r ON book.book_id=r.book_id Group by book.book_id, book.book_title, author.author_name_first, g.genre_name',
+  client.query('SELECT book.book_id, book.book_title, author.author_name_first, g.genre_name, Count(r.review_rating), CAST(AVG(r.review_rating)AS DECIMAL(10,1)) FROM book JOIN book_author ba ON book.book_id=ba.book_id INNER JOIN author ON author.author_id=ba.author_id JOIN book_genre bg ON book.book_id=bg.book_id JOIN genre g ON bg.genre_id=g.genre_id LEFT Join review r ON book.book_id=r.book_id Group by book.book_id, book.book_title, author.author_name_first, g.genre_name',
     (err, res) => {
       for (i = 0; i < res.rows.length; i++) {
         books.push(
@@ -50,23 +35,7 @@ function router(nav) {
           }
         );
       }
-      //client.end();
     });
-
-  // var commentsArray = [];
-
-  // var resultComments = client.query('SELECT r.book_id, r.review_comment, r.review_rating FROM review r',
-  //   (err, res) => {
-  //     for (i = 0; i < res.rows.length; i++) {
-  //       commentsArray.push(
-  //         {
-  //           idofCommentedBook: res.rows[i].book_id,
-  //           comment: res.rows[i].review_comment,
-  //           rating: res.rows[i].review_rating,
-  //         });
-  //     }
-  //     //client.end();
-  //   });
 
   reviewRouter.route('/:id')
     .get((req, res) => {
@@ -83,12 +52,11 @@ function router(nav) {
       );
     });
 
-
   var ratingNumber = [];
   reviewRouter.post('/:id', function (req, resp) {
     let orderId = req.body.orderId;
     let bookId = parseInt(req.params.id);
-    let userRating = 5; //parseInt(req.body.clickedValue);
+    let userRating = parseInt(req.body.clickedValue);
     let userReview = req.body.review;
     ratingNumber.push(userRating);
 
@@ -101,7 +69,7 @@ function router(nav) {
         return client.query('SELECT r.book_id, r.review_comment, r.review_rating FROM review r')
           .then((res1) => {
             console.log('res1: ', res1);
-            for (i = 0; i < res1.rows.length; i++) {  
+            for (i = 0; i < res1.rows.length; i++) {
               commentsArray.push(
                 {
                   idofCommentedBook: res1.rows[i].book_id,
@@ -110,22 +78,14 @@ function router(nav) {
                 });
             }
 
-            const specificBookReview = books[bookId - 1];
-             console.log('render');
-            return resp.render(
-              'bookView',
-              {
-                nav,
-                title: 'Library',
-                book: specificBookReview,
-                commentsArray: commentsArray
-              }
-            );
+            console.log('render');
+
+            return resp.redirect("/books/" + bookId);
           })
 
       })
       .catch((error) => {
-        console.log('error here: ', error);
+        return resp.redirect("/books/" + bookId);
       })
   });
   return reviewRouter;
